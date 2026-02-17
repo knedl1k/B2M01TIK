@@ -1,0 +1,235 @@
+\section{Počítání modulo \texorpdfstring{$n$}{n}}
+\section*{Algebraické struktury}
+\subsection{Množiny s jednou binární operací}\label{grupa}
+Na množině $A$ je dána binární operace $*$, tj. $* : A \times A \rightarrow A$. Pak se
+\begin{itemize}
+	\item $(A, *)$ nazývá \ii{pologrupa}, pokud je operace $*$ asociativní, tj. pro každé $x, y, z \in A$ platí \\ $x * (y * z) = (x * y) * z$.
+	\item $(A, *)$ nazývá \ii{monoid}, pokud je pologrupou a má neutrální prvek, tj. existuje $e \in A$ tak, že pro každé $x \in A$ platí $e * x = x = x * e$.
+	\item $(A, *)$ nazývá \ii{grupa}, pokud je monoid a má všechny inverzní prvky, tj. pro každé $x \in A$ existuje $y \in A$ tak, že $x * y = e = y * x$.
+	\item Pologrupa, monoid či grupa jsou \ii{komutativní}, pokud je oprace $*$ komutativní, tj. pro každé $x, y \in A$ platí $x * y = y * x$.
+\end{itemize} 
+Například $(\Z, +)$ je komutativní grupa a $(Z, \cdot)$ je komutativní monoid. Zároveň třeba $(\N, -)$ není vhodná množina $A$, protože odečítáním dvou $\N$ se snadno dostaneme mimo prostor $\N$, například $2 - 3 = -1 \not\in \N$.
+
+\subsection{Množiny se dvěma binárními operacemi}
+Mějme množinu $A$ se dvěma binárními operacemi, které označíme jako sčítání a násobení. Pak se $(A, +, \cdot)$ nazývá 
+\begin{itemize}
+	\item \ii{okruh}, jestliže
+		\begin{itemize}
+			\item $(A, +)$ je komutativní \hyperref[grupa]{grupa} (neutrální prvek značíme 0);
+			\item $(A, \cdot)$ je pologrupa;
+			\item platí oba distributivní zákony, tj. pro všechna $x, y, z \in A$ platí $x \cdot (y + z) = x \cdot y + x \cdot z$ a také $(y + z) \cdot x = y \cdot x + z \cdot x$.
+		\end{itemize}\label{okruh}
+		Je-li v okruhu $(A, +, \cdot)$ násobení komutativní a má-li neutrální prvek (značíme jej 1), mluvíme o \ii{komutativním okruhu s jednotkou}.
+	\item \ii{těleso}, jestliže
+		\begin{itemize}
+			\item je to okruh s jednotkou;
+			\item každý nenulový prvek má inverzní prvek, tedy $(A - \bc{0})$ je \hyperref[grupa]{grupa};
+			\item $0 \not= 1$, tedy neutrální prvek pro sčítání není současně neutrálním prvkem pro násobení.
+		\end{itemize}\label{teleso}
+		Většinou budeme užívat stručné označení \ii{těleso} v případech, kdy budeme myslet \ii{komutativní těleso}, tj. násobení mají komutativní.
+\end{itemize}
+Celá čísla $(\Z, +, \cdot)$ tvoří komutativní \hyperref[okruh]{okruh} s jednotkou, v němž pouze 1 a $-1$ mají inverzní prvek.
+
+\section*{Konstrukce faktorových okruhů modulo \texorpdfstring{$n$}{n}}
+\subsection{Věta o dělení se zbytkem}\label{delZbyt}% TODO: důkaz?
+Pro každé $a, b \in \Z$, kde $b \not= 0$, existují jednoznačně určené $q, z \in \Z$ tak, že
+\begin{equation}
+	a = q \cdot b + z \quad \text{a} \quad 0 \leq z < |b|.
+\end{equation}
+Pro těleso $(\R, +, \cdot)$ můžeme definovat $r : s \underset{\text{Def.}}{=} r \cdot (s^{-1})$ pro $s \not= 0$.
+
+\subsection{Relace dělitelnosti}\label{relDel}
+Nechť $a, b \in \Z$. Řekněme, že $a$ \ii{dělí} $b$ (nebo $a$ je dělitelem $b$), když existuje $k \in \Z$ tak, že $b = ka$. Značíme $a|b$.
+
+\ii{Relace dělitelnosti} je uspořádáním na $\N$ (tj. reflexivní, antisymetrickou a tranzitivní relací).
+
+Relace dělitelnosti však není antisymetrická na $\Z$ (protože $2 | (-2)$ a $(-2) | 2$, ale $2 \not= -2$), tam má smysl mluvit o \ii{relaci asociovanosti}: $a || b$, pokud $a|b$ a zároveň $b|a$.
+
+Platí, že $a||b$ právě tehdy, když $b = \pm a$.
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[
+    number/.style={
+        circle, 
+        draw=black, 
+        thick, 
+        minimum size=8mm, 
+        inner sep=0pt,
+    },
+    edge/.style={
+        thick,
+        draw=black
+    }
+]
+
+    \node[number] (1) at (0,0) {1};
+
+    \node[number] (2) at (-2, 2) {2};
+    \node[number] (3) at (0, 2) {3};
+    \node[number] (5) at (2, 2) {5};
+
+    \node[number] (4) at (-3, 4) {4};
+    \node[number] (6) at (-1, 4) {6};
+    \node[number] (10) at (2, 4) {10};
+
+    \node[number] (12) at (-2, 6) {12};
+
+    \node[number, fill=gray!10] (0) at (0, 8) {0};
+
+    \draw[edge] (1) -- (2);
+    \draw[edge] (1) -- (3);
+    \draw[edge] (1) -- (5);
+
+    \draw[edge] (2) -- (4); 
+    \draw[edge] (2) -- (6); 
+    \draw[edge] (3) -- (6); 
+    \draw[edge] (2) -- (10);
+    \draw[edge] (5) -- (10);
+
+    \draw[edge] (4) -- (12);
+    \draw[edge] (6) -- (12);
+
+    \draw[edge] (12) -- (0);
+    \draw[edge] (10) -- (0);
+\end{tikzpicture}
+\caption{Příklad Hasseova diagramu pro přirozená čísla uspořádaná dělitelností.}
+\end{figure}
+\vspace{-1.5em}
+Nula je \enquote{největším} prvkem, protože $0 = k \cdot 0$, tj. platí $a | 0$ pro každé $a$. 
+
+\subsection{Prvočísla}\label{prvocisla}
+Přirozené číslo $p \geq 2$ je \ii{prvočíslo}, pokud je dělitelné pouze čísly $1$ a $p$, aneb pokud se nedá napsat jako součin dvou čísel menších než $p$.
+
+Test prvočíselnosti \enquote{hrubou silou}: Číslo $n$ je prvočíslo, pokud není dělitelné beze zbytku žádným prvočíslem $p \leq \sqrt{n}$.
+
+Problém testování prvočíselnosti (resp. rozložení čísla $n$ na součin dvou menších čísel) \enquote{hrubou silou} má exponenciální čásovou složitost v závislosti na počtu cifer čísla $n$. Musíme vykonat
+\begin{equation}
+	\sqrt{n} = \sqrt{2^{\log_2(n)}} = 2^{\frac{1}{2}\log_2(n)}
+\end{equation}
+dělení.
+
+Pokud prvočíslo dělí součin dvou čísel, pak dělí alespoň jedno z nich.
+
+\subsection{Věta o nekonečném počtu prvočísel}
+\ii{Euklid.} Neexistuje největší prvočíslo, aneb prvočísel je nekonečně mnoho.
+
+\dukaz Ať $P$ je násobek všech prvočísel v seznamu $L = \bc{p_1, p_2, \dots, p_n}$: $P = p_1 p_2 \dots p_n$. Mějme $q = P + 1$, pak
+\vspace{-1em}
+\begin{itemize}
+	\item pokud $q$ je prvočíslo, pak alespoň jedno prvočíslo chybí v seznamu $L$, protože $q \not\in L$;
+	\item pokud $q$ není prvočíslo, pak nějaké prvočíslo $p$ dělí $q$. Pokud $p \in L$, tak by $p$ dělilo $P$. Pokud $p$ dělí $P$ a $q$, pak $p$ musí dělit také rozdíl techto dvou čísel, který je $(P + 1) - P$, tedy 1. Jelikož žádné prvočíslo nedělí 1, tak $p \not\in L$. To znamená, že existuje alespoň jedno další prvočíslo, které v $L$ není.
+\end{itemize}
+\vspace{-1em}
+\hspace{\fill}\qed
+
+\subsection{Základní věta aritmetiky}
+Každé přirozené číslo $n \geq 2$ lze jednoznačně (až na pořadí) napsat jako součin mocnin různých prvočísel.
+
+\subsection{Největší společný dělitel}\label{gcd}
+\ii{Největší společný dělitel} dvou čísel $a, b \in \Z$ je takové číslo $d \in \Z$, které splňuje
+\vspace{-1em}
+\begin{itemize}
+	\item $d$ dělí obě čísla $a$ i $b$,
+	\item $d$ je dělitelné všemi společnými děliteli obou čísel,
+	\item $d \geq 0$.
+\end{itemize}
+\vspace{-1em}
+Značíme $d = \gcd(a,b)$.
+
+Analogicky lze definovat \ii{nejmenší společný násobek}, $\lcm(a,b)$.
+
+\subsection{Eukleidův algoritmus}\label{eukleidAlgo}
+Hledáme $\gcd(a,b)$. Předpokládejme, že $a \geq b > 0$.
+\begin{enumerate}[1)]
+	\item \hyperref[delZbyt]{Podělíme se zbytkem}: $a = q \cdot b + z$ a $0 \leq z < b$.
+	\item Pokud je zbytek $z = 0$, tak je $\gcd(a,b) = b$.
+	\item Pokud je zbytek $z > 0$, tak dvojice $a,b$ má stejné společné dělitele jako dvojice $b,z$. Tedy i $\gcd(a,b) = \gcd(b,z)$. Budeme dále hledat $\gcd(b,z)$ stejným postupem.
+\end{enumerate}
+Jedná se o rekurzivní algoritmus, který se opírá o dělení se zbytkem. Jelikož zbytky jsou celočíselné, nezáporné a stále menší, bude po konečném počtu kroků zbytek nulový (úloha se zastaví). Protože počet dělení se zbytkem je lineární v závislosti na počtu cifer menšího čísla, je časová složitost maximálně kubická.
+
+\subsection{Příklad použití Eukleidova algoritmu}
+Určete $\gcd(156, 114)$.
+\begin{align}
+	\tag{R1} 156 &= 1 \cdot 114 + 42 \\
+	\tag{R2} 114 &= 2 \cdot 42 + 30 \\
+	\tag{R3} 42 &= 1 \cdot 30 + 12 \\\
+	\tag{R4} 30 &= 2 \cdot 12 + 6 \\
+	\tag{R5} 12 &= 2 \cdot \boxed{6}  + 0
+\end{align}
+$\gcd(156, 114) = 6$.
+
+\subsection{Bezoutova věta}\label{bezout}
+Největší společný dělitel čísel  $a, b \in \Z$ je jejich celočíselnou kombinací, aneb
+\begin{equation}
+	\gcd(a,b) = k \cdot a + l \cdot b \quad \text{pro nějaká} \quad k, l \in \Z.
+\end{equation}
+
+\subsection{Rozšířený Eukleidův algoritmus}\label{rozEukleidAlgo}
+K nalezení celočíselných koeficientů $k, l \in \Z$ z \hyperref[bezout]{Bezoutovy} věty lze použít \ii{rozšířený Eukleidův algoritmus}:
+\begin{itemize}
+	\item V každém kroku \hyperref[eukleidAlgo]{Eukleidova algoritmu} přepočítáme aktuální zbytek na kombinaci čísel $a,b$.
+	\item $\gcd(a,b)$ je posledním nenulovým zbytkem, tudíž jednou nakombinujeme z čísel $a,b$ i jejich \hyperref[gcd]{největšího společného dělitele}.
+\end{itemize}
+
+\subsection{Příklad použití Eukleidův algoritmus}
+Máme $\gcd(156, 114)$. Označme $a = 156$, $b = 114$.
+\begin{align}
+	\tag{R1} 42 &= 1a - 1b \\
+	\tag{R2} 30 &= 114 - 2 \cdot 42 = b - 2(a-b) = -2a + 3b \\
+	\tag{R3} 12 &= 42 - 30 = a - b + 2a - 3b = 3a - 4b \\
+	\tag{R4} 6 &= 30 -2 \cdot 12 = -2a + 3b -2(3a - 4b) = -8a + 11b
+\end{align}
+% TODO: zápis tabulkou
+
+\subsection{Diofantické rovnice}\label{diofantRce}
+Rovnice $ax + by = c$, kde $a,b,c \in \Z$, má řešení v $\Z$ právě tehdy, když $\gcd(a,b) | c$.
+
+Pokud nějaké celočíselné řešení diofantické rovnice existuje, pak je jich nekonečné mnoho a jsou tvaru
+\begin{equation}
+	(x, y) = (x_p, y_p) + k(x_0, y_0) \quad \text{pro} \quad k \in \Z,
+\end{equation}
+kde $(x_p, y_p)$ je partikulární řešení (najdeme jej pomocí \hyperref[rozEukleidAlgo]{rozšířeného Eukleidova algoritmu}) a $(x_0, y_0)$ je nesoudělné řešení homogenní rovnice, tedy $(x_0, y_0) = (\frac{b}{d}, - \frac{a}{d})$, kde $d = \gcd(a,b)$.
+% TODO: příklad
+
+\subsection{Kongruence modulo \texorpdfstring{$n$}{n}}\label{kongruenceMod}
+Nechť $n \in \N$. Čísla $a,b \in \Z$ jsou \ii{konguentní modulo $n$}, pokud $n | (b-a)$. Značíme $a \equiv b \pmod{n}$.
+
+Tato tvrzení jsou ekvivalentní:
+\vspace{-1em}
+\begin{itemize}
+	\item $a \equiv b \pmod{n}$ právě tehdy, když čísla $a,b$ mají stejný zbytek po dělení číslem $n$,
+	\item $a \equiv b \pmod{n}$ právě, když $b = a + kn$ pro $k \in \Z$.
+\end{itemize}
+
+\subsection{Relace kongruence modulo \texorpdfstring{$n$}{n}}
+Relace \hyperref[kongruenceMod]{kongruence modulo $n$} je relace ekvivalence na množině celých čísel (tj. reflexivní, symetrická a tranzitivní relace).
+
+Důsledkem je, že relace kongruence modulo $n$ rozloží množinu celých čísel na třídy navzájem ekvivalentních prvků, tzv. \ii{zbytkové třídy modulo $n$}, množinu všech zbytkových tříd modulo $n$ značíme
+\begin{equation}
+	\Z_n = \bc{[0]_n, [1]_n, \dots, [n-1]_n}, \quad \text{kde } [a]_n = \bc{a+kn \middle| k \in \Z}.
+\end{equation}
+
+\subsection{Sčítání a násobení s relací kongruence modulo \texorpdfstring{$n$}{n}}
+Relace kongruence modulo $n$ je zachována při sčítání a násobení.
+Když
+\begin{equation}
+	a\equiv b \pmod{n} \quad \text{i} \quad c \equiv d \pmod{n}, 
+\end{equation}
+pak také
+\begin{equation}
+	a + c \equiv b + d \pmod{n} \quad \text{i} \quad ac \equiv bd \pmod{n}.	
+\end{equation}
+
+Důsledek je, že na množině $\Z_n$ můžeme korektně definovat operace sčítání a násobení přes representanty:
+\begin{equation}
+	[a]_n \oplus [b]_n = [a+b]_n, \quad [a]_n \odot [b]_n = [a \cdot b]_n.
+\end{equation}
+Díky definici přes repsentanty zdědí operace $\oplus$ a $\odot$ vlastnosti, které měly operace sčítání a násobení na $\Z$.
+
+\subsection{Faktorový okruh zbytkových tříd modulo \texorpdfstring{$n$}{n}}
+Trojice $(\Z, \oplus, \odot)$ tvoří komutativní \hyperref[okruh]{okruh} s jednotkou, který se nazývá \ii{faktorový okruh zbytkových tříd modulo $n$}.
+
+V dalším textu zjednodušíme značení:
+\[
+	(\Z_n = \bc{0, 1, \dots, n-1}, +, \cdot)	
+\]
