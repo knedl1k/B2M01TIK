@@ -233,3 +233,125 @@ V dalším textu zjednodušíme značení:
 \[
 	(\Z_n = \bc{0, 1, \dots, n-1}, +, \cdot)	
 \]
+
+\subsection{Lineární rovnice v \texorpdfstring{$\Z_n$}{Zn}}
+Lineární rovnice $ax=b$ v $\Z_n$ lze převést na \hyperref[diofantRce]{diofantickou rovnici} následujícími úpravami:
+\vspace{-1em}
+\begin{itemize}
+	\item $ax = b$ v $\Z_n$
+	\item $ax = b \pmod{n}$ v $\Z$
+	\item $ax + ny = $ v $\Z$
+\end{itemize}
+\vspace{-1em}
+Lineární rovnice $ax = b$ má řešení v $\Z_n$ právě, když $\gcd(a, n) |b$.
+
+Je-li $x_p$ jedno řešení, pak každé řešení má tvar
+\begin{equation}
+	x = x_p + k \cdot x_0, \, \text{kde } x_0 = \frac{n}{\gcd(a,n)}, \, 0 \leq k < \gcd(a,n).
+\end{equation}
+V okruhu $\Z_n$ tak vznikne celkem $\gcd(a,n)$ různých řešení.
+
+\subsection{Těleso \texorpdfstring{$\Z_n$}{Zn}}
+Speciálně rovnice $ax = 1$ bude mít řešení v $\Z_n$ právě, když $\gcd(a,b)=1$ (řešením bude inverzní prvek $a^{-1}$ v $\Z_n$).
+
+Důsledkem je, že prvek $a \in \Z_n$ je invertibilní v $\Z_n$ právě, když je $a$ nesoudělné s $n$.
+
+\hyperref[okruh]{Okruh} $(\Z_n, +, \cdot)$ je těleso právě, když $n=p$ je \hyperref[prvocisla]{prvočíslo}.
+
+\section*{Umocňování v $\Z_n$}
+Při sčítání a násobení můžeme čísla nahradit jejich zbytky modulo $n$.
+
+Můžeme nějak zmenšit exponent při umocňování modulo $n$?
+
+Čísel v $\Z_n$ je konečně mnoho, výsledky mocnin se musí opakovat:
+\begin{equation}
+	\text{Existují} \quad k > l \in \N \quad \text{tak, že} \quad a^k = a^l.
+\end{equation}
+Pokud je $a$ invertibilní v $\Z_n$, získáme odtud $a^{k-l} = 1$. Mocniny čísla $a$ se cyklí s periodou $k-l$.
+
+Jaká je společná perioda pro všechna invertibilní $a \in \Z_n$?
+
+\subsection{Malá Fermatova věta}\label{malaFermat}
+Nechť $p$ je \hyperref[prvocisla]{prvočíslo}. Pro každé $a \not= 0$ je $a^{p-1} = 1$ v $\Z_p$.
+
+\subsection{Euler-Fermatova věta}\label{eulerFermat}
+Pro každé $a \in \Z_n$, $a$ nesoudělné s $n$, je $a^{\varphi(n)} = 1$ v $\Z_n$.
+
+Aneb je-li základ nesoudělný s $n$, můžeme exponent zmenšit modulo $\varphi(n)$.
+
+\subsection{Eulerova funkce}\label{eulerFun}
+\begin{equation}
+	\varphi : \N \rightarrow \N: \varphi(n) = \text{ počet čísel mezi 0 až } (n-1) \text{ nesoudělných s }n
+\end{equation}
+Pro výpočet Eulerovy funkce platí následující vzorce:
+\vspace{-1em}
+\begin{itemize}
+	\item $\varphi(n) = p-1$ pro $p$ \hyperref[prvocisla]{prvočíslo}
+	\item $\varphi(p^k) = p^k - p^{k-1} = p^{k-1}(p-1)$ pro $p$ prvočíslo a $k \in \N$
+	\item $\varphi(n \cdot m) = \varphi(n) \cdot \varphi(m)$ pro $n,m \in \N$ navzájem nesoudělná
+\end{itemize}
+\vspace{-1em}
+Známe-li prvočíselný rozklad čísla $n$, umíme spočítat $\varphi(n)$, jinak ne.
+
+\subsection{Eulerova věta}\label{euler}
+Nechť $(G, \circ)$ je konečná \hyperref[grupa]{grupa} o $n$ prvcích s neutrálním prvkem 1. Pro každé $a \in G$ platí
+\begin{equation}
+	a^n = \underbrace{a \circ a \circ \dots \circ a}_{n\text{-krát}} = 1 \text{ v } G.
+\end{equation}
+\hyperref[eulerFermat]{Euler-Fermatova věta} je speciálním případem \hyperref[euler]{Eulerovy věty} aplikované na grupu $(\Z_n^\star, \cdot)$ invertibilních prvků v monoidu $(\Z_n, \cdot)$.
+\begin{equation}
+	\Z_n^\star = \bc{a \in \Z_n; \, a \text{ je nesoudělné s } n}
+\end{equation}
+Počet prvků této grupy $|\Z_n^\star| = \varphi(n)$, neutrální prvek je 1.
+
+\subsection{Řád prvku v grupě}\label{radPrvku}
+Pro každé $a \in G$ platí $a^n = 1$ v $n$-prvkové \hyperref[grupa]{grupě} $G$. Pro dané $a$ ale nemusí být $n$ tím nejmenším exponentem, na který musíme umocnit, aby vyšlo 1.
+
+Nechť $(G, \circ)$ je konečná grupa s neutrálním prvkem 1, $a \in G$. Nejmenší přirozené číslo $r > 0$ takové, že
+\begin{equation}
+	a^r = \underbrace{a \circ a \circ \dots \circ a}_{r\text{-krát}} = 1
+\end{equation}
+se nazývá \ii{řád prvku} $a$ v grupě $G$. Značíme $\ra(a)$.
+
+Například pro $\Z_9^\star = \bc{1,2,4,5,7,8}$, $|\Z_9^\star| = \varphi(9) = 6$ jsou
+\vspace{-1em}
+\begin{itemize}
+	\item $\ra(8) = 2$;
+	\item $\ra(4) = 3$;
+	\item $\ra(2) = 6$.
+\end{itemize}
+Definice pojmu řád prvku $a$ v konečné grupě $G$ je smysluplná, podle \hyperref[euler]{Eulerovy věty} takové číslo existuje a je $\ra(a) \leq G$.
+
+V monoidu je situace jiná; pokud prvek $a$ není invertibilní, pak $a^k \not= 1$ pro každé $k \geq 1$ (jinak by pro dané $k$ byl prvek $a^{k-1}$ inverzním prvkem k prvku $a$).
+
+Známe-li $\ra(a)$ v grupě $G$, usnadní nám to umocňování: při výpočtu $a^k$ můžeme v exponentu počítat modulo $\ra(a)$. 
+
+Je-li grupa aditivní $(G, +)$ s neutrálním prvkem 0, pak řád je nejmenší $r>0$ takové, že
+\begin{equation}
+	r \cdot a = \underbrace{a + a + \dots + a}_{r\text{-krát}} = 0.
+\end{equation}
+
+\subsection{Tvrzení o dělitelnosti řádu prvku}
+Nechť $(G, \circ)$ je konečná \hyperref[grupa]{grupa}, $a \in G$. Pak $a^k = 1$ v grupě $G$ právě, když $\ra(a) |k$. 
+
+Důsledkem tvrzení je, že řád prvku $\ra(a)$ v konečné grupě $G$ je dělitelem počtu prvků grupy.
+
+Jedná se o důsledek \hyperref[euler]{Eulerovy věty} (kterou jsme pro komutativní grupy dokázali přímo), a předchozího tvrzení. V nekomutativním případě se postupuje obráceně: z \hyperref[lagrange]{Lagrangeovy věty} se odvodí tvrzení, že řád prvku dělí počet prvků grupy, odtud potom Eulerova věta.
+
+\subsection{Lagrangeova věta}\label{lagrange}
+Počet prvků libovolné podgrupy $P$ (v konečné \hyperref[grupa]{grupě} $G$) je dělitelem počtu prvků grupy $G$.
+
+Důsledkem je, že \hyperref[radPrvku]{řád prvku} $\ra(a)$ v konečné grupě $G$ je dělitelem počtu prvků grupy.
+
+\subsection{Cyklická podgrupa}
+Je-li $\ra(a) = r$, pak množina $P = \bc{a, a^2, a^3, \dots, a^r = 1}$ tvoří $r$-prvkovou podgrupu \hyperref[grupa]{grupy} $G$. Nazýváme ji \ii{cyklická podgrupa} generovaná prvkem $a$, značíme ji $P = \langle a \rangle$.
+
+\subsection{Vztahy řádu prvku grupy, Eulerovy funkce a cyklické podgrupy}
+Nechť $G$ je konečná grupa, $a \in G$. Pak platí
+\vspace{-1em}
+\begin{itemize}
+	\item pokud $d | \ra(a)$, pak $\ra(a^d) = \frac{\ra(a)}{d}$;
+	\item $r(a^k) = \frac{\ra(a)}{\gcd(k, \ra(a))}$;
+	\item $r(a^k) = \ra(a)$ právě, když $\gcd(k, \ra(a)) = 1$;
+	\item podgrupa $P = \langle a \rangle$ má celkem $\varphi(\ra(a))$ prvků řádu $\ra(a)$.
+\end{itemize}
