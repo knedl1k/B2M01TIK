@@ -158,6 +158,20 @@ Určete $\gcd(156, 114)$.
 \end{align}
 $\gcd(156, 114) = 6$.
 
+\subsection{Příklad použití Eukleidova algoritmu}
+Najděte $\gcd(204, 150)$.
+\begin{center}
+	\begin{tabular}{r|l}
+		$q$ & $a -qb$\\
+		1 & $204 = a$ \\
+		2 & $150 = \phantom{a +} b$ \\
+		1 & $\phantom{1}54 = a - b \rightarrow (a-0a) + (0b -b)$\\
+		3 & $\phantom{1}42 = -2a + 3b$ \\
+		2 & $\phantom{11}6 = -11a + 15b$ \\
+		& \phantom{11}0 
+	\end{tabular}
+\end{center}
+
 \subsection{Bezoutova věta}\label{bezout}
 Největší společný dělitel čísel  $a, b \in \Z$ je jejich celočíselnou kombinací, aneb
 \begin{equation}
@@ -190,6 +204,42 @@ Pokud nějaké celočíselné řešení diofantické rovnice existuje, pak je ji
 \end{equation}
 kde $(x_p, y_p)$ je partikulární řešení (najdeme jej pomocí \hyperref[rozEukleidAlgo]{rozšířeného Eukleidova algoritmu}) a $(x_0, y_0)$ je nesoudělné řešení homogenní rovnice, tedy $(x_0, y_0) = (\frac{b}{d}, - \frac{a}{d})$, kde $d = \gcd(a,b)$.
 % TODO: příklad
+
+\subsection{Příklad řešení diofantické rovnice}
+Řešte diofantickou rovnici
+\begin{equation}
+	204x + 150y = 36.
+\end{equation}
+\begin{align}
+	x_p &= \gcd(204, 150)x + x_h = -66 + 25k, \\
+	y_p &= \gcd(204, 150)y + y_h = 90 - 34k, k \in \Z
+\end{align}
+
+\subsection{Příklad řešení diofantickou rovnicí}
+Najděte $51^{-1}$ v $\Z_{73}$.
+Tedy
+\begin{align}
+	51x &= 1 \text{ v } \Z_{73} \\
+	51x + 73y &= 1 \dots \text{ 51 a 73 jsou nesoudělná, rovnice má tedy řešení.}
+\end{align}
+\begin{center}
+	\begin{tabular}{r|l}
+		$q$ & $a -qb$\\
+		1 & $73 = a$ \\
+		2 & $51 = \phantom{a +} b$ \\
+		1 & $22 = a - b$ \\
+		3 & $\phantom{1}7 = -2a + 3b$ \\
+		2 & $\phantom{1}1 = 7a - 10b$ \\
+		& \phantom{1}0 
+	\end{tabular}
+\end{center}
+Takže
+\begin{equation}
+	51(-10) + 73 \cdot 7 = 1 \\
+	51^{-1} = -10 = 63
+\end{equation}
+
+\subsection{Příklad řešení diofantic}
 
 \subsection{Kongruence modulo \texorpdfstring{$n$}{n}}\label{kongruenceMod}
 Nechť $n \in \N$. Čísla $a,b \in \Z$ jsou \ii{konguentní modulo $n$}, pokud $n | (b-a)$. Značíme $a \equiv b \pmod{n}$.
@@ -234,22 +284,18 @@ V dalším textu zjednodušíme značení:
 	(\Z_n = \bc{0, 1, \dots, n-1}, +, \cdot)	
 \]
 
-\subsection{Lineární rovnice v \texorpdfstring{$\Z_n$}{Zn}}
-Lineární rovnice $ax=b$ v $\Z_n$ lze převést na \hyperref[diofantRce]{diofantickou rovnici} následujícími úpravami:
-\vspace{-1em}
-\begin{itemize}
-	\item $ax = b$ v $\Z_n$
-	\item $ax = b \pmod{n}$ v $\Z$
-	\item $ax + ny = $ v $\Z$
-\end{itemize}
-\vspace{-1em}
-Lineární rovnice $ax = b$ má řešení v $\Z_n$ právě, když $\gcd(a, n) |b$.
-
-Je-li $x_p$ jedno řešení, pak každé řešení má tvar
+\subsection{Lineární rovnice v \texorpdfstring{$Z_n$}{Zn}}
+Lineární rovnice $ax = b$ v $\Z_n$ lze převést na \hyperref[diofantRce]{diofantickou rovnici} následujícími úpravami:
+\begin{align}
+	ax &= b \text{ v } \Z_n \\
+	ax &= b \pmod{n} \text{ v } \Z \\
+	ax + ny &=b \text{ v } \Z
+\end{align}
+Lineární rovnice $ax = b$ má řešení v $\Z_n$ právě, když $\gcd(a,n) | b$. Je-li $x_p$ jedno řešení, pak každé řešení má tvar
 \begin{equation}
-	x = x_p + k \cdot x_0, \, \text{kde } x_0 = \frac{n}{\gcd(a,n)}, \, 0 \leq k < \gcd(a,n).
-\end{equation}
+	x = x_p + k x_0, \, \text{kde } x_0 = \frac{n}{\gcd(a,n)}, \, 0 \leq k < n \gcd(a,n).
 V okruhu $\Z_n$ tak vznikne celkem $\gcd(a,n)$ různých řešení.
+\end{equation}
 
 \subsection{Těleso \texorpdfstring{$\Z_n$}{Zn}}
 Speciálně rovnice $ax = 1$ bude mít řešení v $\Z_n$ právě, když $\gcd(a,b)=1$ (řešením bude inverzní prvek $a^{-1}$ v $\Z_n$).
