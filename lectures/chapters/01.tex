@@ -377,18 +377,45 @@ Je-li grupa aditivní $(G, +)$ s neutrálním prvkem 0, pak řád je nejmenší 
 	r \cdot a = \underbrace{a + a + \dots + a}_{r\text{-krát}} = 0.
 \end{equation}
 
-\subsection{Tvrzení o dělitelnosti řádu prvku}
+\subsection{Tvrzení o dělitelnosti řádu prvku}\label{tvrDelRad}
 Nechť $(G, \circ)$ je konečná \hyperref[grupa]{grupa}, $a \in G$. Pak $a^k = 1$ v grupě $G$ právě, když $\ra(a) |k$. 
 
 Důsledkem tvrzení je, že řád prvku $\ra(a)$ v konečné grupě $G$ je dělitelem počtu prvků grupy.
 
 Jedná se o důsledek \hyperref[euler]{Eulerovy věty} (kterou jsme pro komutativní grupy dokázali přímo), a předchozího tvrzení. V nekomutativním případě se postupuje obráceně: z \hyperref[lagrange]{Lagrangeovy věty} se odvodí tvrzení, že řád prvku dělí počet prvků grupy, odtud potom Eulerova věta.
 
+\subsection{Příklad na řád prvku}
+Mějme grupu $\Z_{47}^*$.
+\begin{enumerate}[a)]
+	\item Kolik má prvků a jaké to jsou?
+	\item $\ra(2) = ?$ 
+\end{enumerate}
+\begin{enumerate}[a)]
+	\item V grupě jsou všechna $\Z$, která jsou invertibilní. 47 je prvočíslo, takže
+	\begin{equation}
+		| \Z_{47}^* | = \varphi(47) = 46 = 2 \cdot 23.
+	\end{equation}
+	A $|\Z_{47}^* | = \Z_{47} \setminus \bc{0}$.
+	\item Z \hyperref[tvrDelRad]{tvrzení o dělitelnosti řádu prvku} víme, že všechny možné řády $\ra(a) | 46$, tedy
+	\begin{equation}
+		\ra(a) \in \bc{1, 2, 23, 46}.
+	\end{equation}
+	Ověrme:
+	\begin{align}
+		2^2 &= 4 \not= 1 \\
+		2^{23} &= 1\\
+		2^{46} &= 1 \text{ dle \hyperref[malaFermat]{Malé Fermatovy věty}}
+	\end{align}
+	Takže $\ra(2) = 23$ v $\Z_{47}^*$.
+\end{enumerate}
+
+% pro zajímavost:
 \subsection{Lagrangeova věta}\label{lagrange}
 Počet prvků libovolné podgrupy $P$ (v konečné \hyperref[grupa]{grupě} $G$) je dělitelem počtu prvků grupy $G$.
 
 Důsledkem je, že \hyperref[radPrvku]{řád prvku} $\ra(a)$ v konečné grupě $G$ je dělitelem počtu prvků grupy.
 
+% pro zajímavost:
 \subsection{Cyklická podgrupa}
 Je-li $\ra(a) = r$, pak množina $P = \bc{a, a^2, a^3, \dots, a^r = 1}$ tvoří $r$-prvkovou podgrupu \hyperref[grupa]{grupy} $G$. Nazýváme ji \ii{cyklická podgrupa} generovaná prvkem $a$, značíme ji $P = \langle a \rangle$.
 
@@ -401,3 +428,15 @@ Nechť $G$ je konečná grupa, $a \in G$. Pak platí
 	\item $r(a^k) = \ra(a)$ právě, když $\gcd(k, \ra(a)) = 1$;
 	\item podgrupa $P = \langle a \rangle$ má celkem $\varphi(\ra(a))$ prvků řádu $\ra(a)$.
 \end{itemize}
+Ukažme odvození pro $\Z_9^* = \langle 2 \rangle$.
+\begin{itemize}
+	\item $4^s = (2^2)^s = \dots = 1$ (poprvé) $\rightarrow s=3$, protože $2^6 = 1$.
+	\item $7^s = (2^4)^s = 2^{6k} = 1$ (poprvé) $\rightarrow s=3$, protože $s = 3 = \frac{\lcm(4,6)}{4} = \frac{\frac{4 \cdot 6}{\gcd(4,6)}}{4}= \frac{6}{\gcd(4,6)}$.\\
+	Víme, že $6 | (4s)$. Takže $4s = 6k = \lcm(4,6) = \frac{4 \cdot 6}{\gcd(4,6)} = 4 \cdot \underbrace{\frac{6}{\gcd(4,6)}}_{s}$.
+\end{itemize}
+% TODO: příklad
+
+\subsection{Cyklická grupa}
+Grupa $(G, \circ)$ se nazývá \ii{cyklická grupa}, pokud pro nějaký prvek $a \in G$ je $G = \langle a \rangle$. Prvek $a$ je \ii{generátor} grupy $G$.
+
+
