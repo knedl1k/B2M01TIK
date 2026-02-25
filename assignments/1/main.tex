@@ -1,0 +1,206 @@
+\documentclass[11pt, a4paper]{article}
+\usepackage{polyglossia}
+\setdefaultlanguage{czech}
+\usepackage[margin=1in]{geometry}
+
+\makeatletter
+\def\input@path{{../../configs/}{./}}
+\makeatother
+
+\usepackage{math}
+\DeclareMathOperator*{\ra}{r}
+
+\setcounter{section}{1}
+
+\begin{document}
+\title{\bb{Domácí úkol 1}}
+\author{Jakub Adamec\\B2M01TIK}
+
+\maketitle
+
+\begin{exercise}
+V $\Z_{267}$ najděte všechna $x$, pro která platí $114x = 15$.
+\end{exercise}
+\begin{solution}
+	
+\end{solution}
+
+\begin{exercise}
+Spočtěte $51^{-1}$ v $\Z_{73}$ použitím rozšířeného Eukleidova algoritmu.
+\end{exercise}
+\begin{solution}
+	
+\end{solution}
+
+\begin{exercise}
+Určete zbytek po dělení třinácti z čísla $270^{149}$.
+\end{exercise}
+\begin{solution}
+	
+\end{solution}
+
+\begin{exercise}
+Spočtěte $7^{131}$ v $\Z_{26}$.
+\end{exercise}
+\begin{solution}
+	
+\end{solution}
+
+\begin{exercise}
+Spočtěte $5^{-1}$ a $21^{-1}$ v $\Z_{27}$ použitím Euler-Fermatovy věty.
+\end{exercise}
+\begin{solution}
+	
+\end{solution}
+
+\begin{exercise}
+Určete řády všech prvků v aditivní grupě $(\Z_{12}, +)$. Je tato grupa cyklická? Pokud ano, které prvky jsou jejím generátorem?
+\end{exercise}
+\begin{solution}
+Protože se jedná o aditivní grupu, její velikost je 12. Počet generátorů je
+\begin{equation}
+	\varphi(12) = \varphi \left(2^2 \cdot 3\right) = \varphi\left(2^2\right) \varphi(3) = \left(2^2 - 2\right) (3-1) = 4.
+\end{equation}
+Generátory jsou takové prvky grupy, které jsou nesoudělné s její velikostí.
+\vspace{-1em}
+\begin{center}
+	\begin{tabular}{ c|c|c } 
+	$a$ & $\gcd(a, 12)$ & $\ra(a) = \dfrac{12}{\gcd(a, 12)}$ \\
+	\hline
+	$0$ & $12$ & $1$ \\
+	$1$ & $1$ & $12$ \\
+	$2$ & $2$ & $6$ \\
+	$3$ & $3$ & $4$ \\
+	$4$ & $4$ & $3$ \\
+	$5$ & $1$ & $12$ \\
+	$6$ & $6$ & $2$ \\
+	$7$ & $1$ & $12$ \\
+	$8$ & $4$ & $3$ \\
+	$9$ & $3$ & $4$ \\
+	$10$ & $2$ & $6$ \\
+	$11$ & $1$ & $12$
+	\end{tabular}
+\end{center}
+\vspace{-1em}
+Grupa je cyklická právě tehdy, když obsahuje alespoň jeden prvek, jehož řád se rovná celkovému počtu prvků v grupě, tudíž \ii{ano, grupa je cyklická}. Generátory jsou $1, 5, 7 \text{ a } 11$.
+\end{solution}
+
+\begin{exercise}
+Je dána multiplikativní grupa $(\Z_{25}^*, \cdot)$.
+\vspace{-1em}
+\begin{enumerate}[a)]
+	\item Určete řád prvku 6 a použijte jej k výpočtu $x = 6^{57}$ v $\Z_{25}$.
+	\item Najděte nějaký generátor grupy $\Z_{25}^*$, pokud existuje.
+	\item Najděte všechny prvky řádu 4.
+	\item Řešte rovnici $x^5 = 1$ v grupě $\Z_{25}^*$.
+\end{enumerate}
+\end{exercise}
+\begin{solution}
+Protože 25 není prvočíslo, musíme spočítat Eulerovu funkci pro určení počtu prvků:
+\begin{equation}
+	\varphi(25) = \varphi\left(5^2\right) = 5^2 - 5 = 20 
+\end{equation}
+\begin{enumerate}[a)]
+	\item Hledáme nejmenší kladný exponent $k$, pro který platí $6^k \equiv 1 \pmod{25}$, postupně umocňujme:
+	\begin{align*}
+		6^1 &= 6\not= 1 \\
+		6^2 &= 36 = 11\not= 1 \\
+		6^3 &= 11 \cdot 6 = 66 = 16\not= 1 \\
+		6^4 &= 11 \cdot 11 = 121 = 21 = (-4)\not= 1 \\
+		6^5 &= 16 \cdot 11 = 176 = 1 \text{ (poprvé)} \\
+	\end{align*}
+	Řád prvku 6 je $\ra(6) = 5$. Víme, že každá pátá mocnina se rovná jedné; exponent 57 tedy vydělíme 5 se zbytkem:
+	\begin{equation}
+		x = 6^{57} = 6^{5 \cdot 11 + 2} = \left(6^5\right)^11 \cdot 6^2 = 1^11 \cdot 6^2 = 36 = 11 \pmod{25} 
+	\end{equation}
+	\item Hledáme prvek, jehož řád je roven velikostu grupy. Zkusme třeba číslo 2, kandidátem jsou řády $1, 2, 4, 5, 10, 20$ (protože dělí 20).
+	\begin{align*}
+		2^5 &= 32 = 7 \not= 1 \\
+		2^{10} &= \left(2^5\right)^2 = 7^2 = 49 = 24 = -1 \not=1
+	\end{align*}
+	Protože $2^{10} \not=1$, řád čísla 2 nemůže být ani 10, ani žádný z jeho dělitelů (2, 5). Jediná zbývajicí možnost pro řád prvku 2 je 20. A $2^{20} = 1$. 2 je generátorem.
+	\item Když známe generátor, můžeme pomocí něj snadno najít prvky jakéhokoliv řádu. Pokud má generátor $g$ řád $n$, pak prvek $g^k$ má řád $\frac{n}{\gcd(k,n)}$.
+
+	Musí tedy platit
+	\begin{equation}
+		4 = \frac{20}{\gcd(k, 20)}.
+	\end{equation}
+	Z toho plyne $\gcd(k, 20) = 5$. To platí pro $k \in \bc{5, 15}$, takže hledané prvky budou $2^5$ a $2^{15}$.
+	\begin{align*}
+		2^5 &= 32 = 7 \\
+		2^{15} &= \left(2^5\right)^3 =7^3 = 343 = 18
+	\end{align*} 
+	Takže $\ra(7) = \ra(18) = 4$.
+	\item Rovnice $x^5 = 1$ nám říká, že hledáme všechny prvky, jejichž řád dělí číslo 5, tj. prvky řádu 1 nebo 5. Z bodu a) známe jeden prvek řádu 5, tedy číslo 6.
+
+	Protože 5 je prvočíslo, všechny řešení této rovnice vygenerujeme tak, že budeme prvek 6 umocňovat na $0, 1, 2, 3 \text{ a } 4$, ty už máme v a) hotové.
+
+	Řešením rovnice jsou prvky $1, 6, 11, 16 \text{ a } 21$.
+\end{enumerate}
+\end{solution}
+
+\begin{exercise}
+Která z následujících multiplikativních grup je cyklická: $\Z_{15}^*,\, \Z_{17}^*,\,\Z_{26}^*$? Nalezněte generátor.
+\end{exercise}
+\begin{solution}
+\begin{align*}
+	\varphi(15) &= \varphi(3 \cdot 5) = \varphi(3) \varphi(5) = (3-1)(5-1) = 8 \\
+	\varphi(17) &= 16 \\
+	\varphi(26) &= \varphi(13 \cdot 2) = \varphi(13) \varphi(2) = (13-1)(2-1) = 12
+\end{align*}
+Aby grupa byla cyklická, musí mít alespoň jeden prvek $a$, jehož řád je velikost grupy.
+
+U $\Z_{15}$ víme, že prvky jsou $\bc{1, 2, 4, 7, 8, 11, 13, 14}$.
+
+Pro $\Z_{17}^* = \Z_{17} \setminus \bc{0}$. Zkusme 3; abychom nemuseli testovat všechny řády, stačí vyzkoušet řády na dělitele velikosti grupy (16), tj. 2, 4, 8, 16.
+\begin{align*}
+	3^2 &= 9 \not=1 \\
+	3^4 &= 9^2 = 81 = 13 = -4 \not=1 \\
+	3^8 &= (-4)^2 = 16 = -1 \not=1
+\end{align*}
+Takže řád prvku 3 musí nutně být 16; 3 je generátorem.
+
+U $\Z_{26}^*$ hledáme prvek $a$, jehož řád je 12. Prvky grupy jsou lichá čísla nesoudělná s 13 (z Eulerovy funkce). Zkoušejme, třeba 7; opět stačí vyzkoušet řády na dělitele velikosti grupy (12), tj. 2, 3, 4, 6, 12.
+\begin{align*}
+	7^2 &= 49 = 23 = -3 \not=1 \\
+	7^3 &= -3 \cdot 7 = -21 = 5 \not=1 \\
+	7^4 &= (-3)^2 = 9 \not=1 \\
+	7^6 &= 5^2 = 25 = -1 \not=1 
+\end{align*}
+Takže řád prvku 7 musí nutně být 12; 7 je generátorem.
+\end{solution}
+
+\begin{exercise}
+Je dána multiplikativní grupa $(\Z_{31}^*, \cdot)$.
+\begin{enumerate}[a)]
+	\item Najděte nějaký její generátor. Jaká je pravděpodobnost, že při náhodné volbě prvku z této grupy zvolíme právě generátor?
+	\item Najděte všechny prvky řádu 6.
+	\item Určete řád prvku 27 a použijte jej k výpočtu $x = 27^{101112}$ v $\Z_{31}$.
+	\item Řešte rovnici $x^{12}= 1$ v grupě $\Z_{31}^*$.
+\end{enumerate}
+\end{exercise}
+\begin{solution}
+	31 je prvočíslo, tedy $\Z_{31}^* = \Z_{31} \setminus \bc{0}$.
+	\begin{enumerate}[a)]
+		\item Hledáme prvek $a$, jehož řád je 30. To znamená, že $a$ umocněné na jakéhokoliv dělitele čísla 30 nám nesmí dát zbytek 1. Zkusme $a=3$.
+		\begin{align*}
+			3^3 &= 27 = -4 \not=1\\
+			3^6 &= (-4)^2 = 16\not=1\\
+			3^{10} &= 16 \cdot (-4) \cdot 3 = -192 = -6\not=1\\
+			3^{15} &= (-6) \cdot (-4) \cdot 9 = 24 \cdot 9 = 216 = 30 = -1 \not=1
+		\end{align*}
+		Generátorem je 3.
+		Pravděpodobnost náhodného výběru je $P = \frac{\varphi(30)}{|Z_{31}^*|}= \frac{8}{30} = \frac{4}{15}$.
+		\item Víme, že náš generátor 3 má řád 30. Chceme-li prvky řádu 6, budou mít tvar $3^k$, kde musí platit
+		\begin{equation}
+			6 = \frac{30}{\gcd(k, 30)}.
+		\end{equation}
+		Z toho vyplývá, že $\gcd(k, 30) = 5$. V úvahu připadají čísla od 1 do 30, která mají s 30 největšího společného dělitele 5, tj. 5 a 25.
+		\begin{align*}
+			3^5 &= (-4) \cdot 3^2 = -36 = -5 = 26 \\
+			3^{25} &= (-1) \cdot (-6) = 6
+		\end{align*}
+		Prvky řádu 6 jsou 6 a 26.
+	\end{enumerate}	
+\end{solution}
+\end{document}
