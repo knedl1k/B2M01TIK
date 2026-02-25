@@ -357,7 +357,24 @@ Nechť $(G, \circ)$ je konečná grupa s neutrálním prvkem 1, $a \in G$. Nejme
 \begin{equation}
 	a^r = \underbrace{a \circ a \circ \dots \circ a}_{r\text{-krát}} = 1
 \end{equation}
-se nazývá \ii{řád prvku} $a$ v grupě $G$. Značíme $\ra(a)$.
+se nazývá \ii{řád prvku} $a$ v grupě $G$. Značíme $\ra(a)$.\\
+\dukaz
+\vspace{-1em}
+\begin{itemize}
+	\item[$\Leftarrow$:] Nechť $k=m \cdot \ra(a)$. Pak
+	\begin{equation}
+		a^k = a^{m \cdot \ra(a)} = \left(a^{\ra(a)}\right)^m = 1^m = 1.
+	\end{equation}
+	\item[$\Rightarrow$:] Nechť $a^k = 1$. Věta \hyperref[delZbyt]{o dělení se zbytkem} zaručuje
+	\begin{equation}
+		k = q \cdot \ra(a) + z, \, 0 \leq \ < \ra(a).
+	\end{equation}
+	Takže
+	\begin{equation}
+		1= a^k = a^{q \cdot \ra(a) + z} = \left(a^{\ra(a)}\right)^q a^z = a^z.
+	\end{equation}
+\end{itemize}
+\hspace{\fill}\qed
 
 Například pro $\Z_9^\star = \bc{1,2,4,5,7,8}$, $|\Z_9^\star| = \varphi(9) = 6$ jsou
 \vspace{-1em}
@@ -420,7 +437,7 @@ Důsledkem je, že \hyperref[radPrvku]{řád prvku} $\ra(a)$ v konečné grupě 
 Je-li $\ra(a) = r$, pak množina $P = \bc{a, a^2, a^3, \dots, a^r = 1}$ tvoří $r$-prvkovou podgrupu \hyperref[grupa]{grupy} $G$. Nazýváme ji \ii{cyklická podgrupa} generovaná prvkem $a$, značíme ji $P = \langle a \rangle$.
 
 \subsection{Vztahy řádu prvku grupy, Eulerovy funkce a cyklické podgrupy}
-Nechť $G$ je konečná grupa, $a \in G$. Pak platí
+Nechť $G$ je konečná \hyperref[grupa]{grupa}, $a \in G$. Pak platí
 \vspace{-1em}
 \begin{itemize}
 	\item pokud $d | \ra(a)$, pak $\ra(a^d) = \frac{\ra(a)}{d}$;
@@ -436,7 +453,79 @@ Ukažme odvození pro $\Z_9^* = \langle 2 \rangle$.
 \end{itemize}
 % TODO: příklad
 
-\subsection{Cyklická grupa}
-Grupa $(G, \circ)$ se nazývá \ii{cyklická grupa}, pokud pro nějaký prvek $a \in G$ je $G = \langle a \rangle$. Prvek $a$ je \ii{generátor} grupy $G$.
+\subsection{Cyklická grupa}\label{cyklGrupa}\label{generator}
+\hyperref[grupa]{Grupa} $(G, \circ)$ se nazývá \ii{cyklická grupa}, pokud pro nějaký prvek $a \in G$ je $G = \langle a \rangle$. Prvek $a$ je \ii{generátor} grupy $G$.
 
+Konečná grupa $G$ o $n$ prvcích je cyklická právě, když obsahuje prvek $a$ řádu $\ra(a) = n$.
 
+Cyklická grupa o $n$ prvcích má celkem $\varphi(n)$ generátorů. Pravděpodobnost, že při náhodné volbě prvku $a \in G$ najdeme generátor, je $\frac{\varphi(n)}{n}$.
+% TODO: příklad s podgrupami
+
+\subsection{Hledání generátoru}
+Prvek $a$ je \hyperref[generator]{generátor} konečné \hyperref[grupa]{grupy} $G$ o $n$ prvcích právě, když je splněna některá z podmínek:
+\vspace{-1em}
+\begin{itemize}
+	\item $a^r \not=1$ pro každé $r < n$, kde $r | n$;
+	\item $a^r \not=1$ pro každé $r = \frac{n}{p}$, kde $p$ je \hyperref[prvocislo]{prvočíslo} a $p | n$.
+\end{itemize}
+Například mějme $\Z_{47}^*$. Ověřte, jestli se jedná o cyklickou grupu.
+
+Víme $|\Z_{47}^*| = 46 = 2 \cdot 23$, a také víme, že řády dělí velikost grupy, tedy $r|46$. To nám dává $r \in \bc{1, 2, 23, 46}$. Z předchozích příkladů víme, že $2^{23} = 1 \rightarrow \ra(2) = 23 \rightarrow$ 2 není \hyperref[generator]{generátor}.
+Zkusme další číslo, třeba $3$. Hledáme situaci, kdy $a \in \Z_{47}^*:\: a^r \not= 1$. Díky \hyperref[eulerFermat]{Euler-Fermatově větě} ale víme, že $a^{p-1} = 1$ v $\Z_p$, takže $2^{46} = 1$.
+
+Zkusme druhou podmínku s $\Z_{19}^*$.
+Víme, že $|\Z_{19}^*| = \varphi(19) = 18$, $\Z_{19}^* = \Z_{19} \setminus \bc{0}$. Víme, že $\ra(a) \in \bc{1, 2, 3, 6, 9, 18}$.
+
+Zkusme $a=2$. Napišme pomocný vztah $0 = 19 = 38 = 57$.
+\begin{align}
+	2^2 &= 4 \not=1 \\
+	2^3 &= 8\not= 1\\
+	2^6 &= 8^2 - 64 = 7 \not= 1\\
+	2^9 &= 7 \cdot 8 = 56 = 18 = (-1) \not= 1\\
+	2^{18} &= (-1)^2 = 1 \text{ (poprvé)}
+\end{align}
+Takže $\ra(2) = 18 \implies \Z_{19}^* = \langle 2 \rangle$.
+
+\subsection{Tvrzení o komutativní grupě a jejím řádu}
+Nechť $G$ je konečná komutativní \hyperref[grupa]{grupa}, $a, b \in G$. (Resp. nechť $ab = ba$.)
+
+Pokud jsou $\ra(a)$ a $\ra(b)$ nesoudělné, pak $\ra(ab) = \ra(a) \ra(b)$.
+
+\subsection{Příklad hledání generátoru}
+Je dána \hyperref[grupa]{grupa} $\Z_{19}^* = \Z_{19} \setminus \bc{0}$. Pak $|\Z_{19}^*| = \varphi(19) = 18 = 2 \cdot 3^2$. Možné řády jsou $\ra(a) \in \bc{1, 2, 3, 6, 9, 18}$.
+
+Určete $\ra(8)$ a použijte ho při výpočtu $8^{195}$ v $Z_{19}$.\\
+$8^6 = 1$ poprvé, tedy $\ra(8) = 6$. A $8^{195} = 8^3 = 18$ v $\Z_{19}$.
+
+Najděte \hyperref[generator]{generátor} v $\Z_{19}^*$.\\
+Zkusme $a=2$. $2^6 = 7 \not=1$ (odtud také $2^2 \not=1$, $2^3 \not=1$), $2^9 = -1 \not=1$, tudíž $\ra(2)=18$ a $2$ je generátor v $\Z_{19}^*$.
+
+Pravděpodobnost náhodné volby generátoru je $P = \frac{\varphi(18)}{18} = \frac{1}{3}$.
+
+\subsection{Příklady cyklických grup}
+\vspace{-1em}
+\begin{itemize}
+	\item \hyperref[grupa]{Grupa} $(\Z_n, +)$ je \hyperref[cyklGrupa]{cyklická} s \hyperref[generator]{generátorem} 1 pro každé $n \geq 1$.
+	\item Grupa $(\Z_p^*, \cdot)$ je cyklická pro každé $p$ \hyperref[prvocislo]{prvočíslo}. 
+	\item Grupa $(\Z_9^*, \cdot)$ je cyklická s generátorem 2. 
+	\item Grupa $(\Z_8^* = \bc{\pm1, \pm3}, \cdot)$ není cyklická grupa, neboť $a^2 = 1$ pro každé $a \in \Z_8^*$. 
+\end{itemize}
+
+\subsection{Vnitřní struktura cyklických grup}
+Nechť $G = \langle a \rangle$ je \hyperref[cyklGrupa]{cyklická grupa} o $n$ prvcích s neutrálním prvkem 1. Nechť $r | n$, tehdy a jen tehdy platí:
+\vspace{-1em}
+\begin{enumerate}[a)]
+	\item V grupě $G$ lze nalézt prvek řádu $r$, například prvek $b = a^k$, kde $k = \frac{n}{r} \in \N$.
+	\item V grupě $G$ je právě jedna podgrupa o $r$ prvcích; a to podgrupa $P_r = \langle b\rangle$, kde $\ra(b) = r$.
+	\item Rovnice $x^r = 1$ má v grupě $G$ právě $r$ řešení, a jsou to všechny prvky z $r$-prvkové podgrupy $P_r$. Jsou tedy tvaru $x = b^i$, kde $\ra(b) = r$ a $0 \leq i \leq r-1$.
+	\item Pro libovolné $k \in \N$ má rovnice $x^k = 1$ v grupě $G$ právě $d = \gcd(k, n)$ řešení a redukuje se na rovnici $x^d = 1$.
+\end{enumerate}
+
+\subsection{Příklad řešení rovnice v grupě}
+Řešte rovnici $x^{21} = 1$ v grupě $\Z_{19}^*$.
+\begin{enumerate}[a)]
+	\item Již víme, že $|\Z_{19}^*| = \varphi(19) =18$ a 2 je generátor v $\Z_{19}^*$.
+	\item Prvek $a$ řeší rovnici $x^{21} = 1$ právě, když $\ra(a)|21$. Navíc $a \in \Z_{19}^*$, tudíž $\ra(a) | 18$. Odtud $\ra(a) | \gcd(21, 18) = 3$ a rovnice se redukuje na rovnici $x^3 =1$.
+	\item Najdeme prvek $b$ řádu 3: $b=2^{\frac{18}{3}} = 2^6 = 7$. Rovnice má tři řešení, $x_1 = 7$, $x_2 = 7^2 = 49 = 11$, $x_3 = 7^3 = 1$.
+	\item Tyto tři prvky jsou kořeny polynomu $x^3 - 1$ v $\Z_{19}$. Protože $(\Z_{19}, +, \cdot)$ je \hyperref[teleso]{těleso}, tak polynom nemůže mít více kořenů, než je jeho stupeň.
+\end{enumerate}
