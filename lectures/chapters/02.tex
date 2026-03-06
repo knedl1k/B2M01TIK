@@ -1,0 +1,157 @@
+\section{Lineární algebra nad \texorpdfstring{$\Z_p$}{Zp}}
+
+\subsection{Lineární prostor}
+\ii{Lineární prostor} nad tělesem $(T, +, \cdot)$ je množina $L$ spolu s operací $\oplus : L \times L \rightarrow L$ a číselného násobku $\boxdot : T \times L \rightarrow L$ (číselný násobek ovšem není binární operace na množině $L$!), pro které platí:
+\vspace{-1em}
+\begin{itemize}
+	\item $(L, \oplus)$ je komutativní grupa s neutrálním prvkem $\ol{o}$;
+	\item pro všechny $\alpha, \beta \in T$ a všechny $\ol{u}, \ol{u} \in L$:
+	\begin{itemize}[$\cdot$]
+		\item $\alpha \boxdot (\ol{u} \oplus \ol{v}) = (\alpha \boxdot \ol{u}) \oplus (\alpha \boxdot \ol{v})$
+		\item $(\alpha + \beta) \boxdot \ol{u} = (\alpha \boxdot \ol{u}) \oplus (\beta \boxdot \ol{u})$
+		\item $(\alpha \cdot \beta) \boxdot \ol{u} = \alpha \boxdot (\beta \boxdot \ol{u})$
+		\item $1\boxdot \ol{u} = \ol{u}$
+	\end{itemize}
+\end{itemize}
+\vspace{-1em}
+Operace sčítání a číselného násobku budeme dále značit jen $+$ a $\cdot$.
+
+\subsection{Lineární prostor všech slov délky \texorpdfstring{$n$}{n} nad \texorpdfstring{$T$}{T}}
+Nechť $T$ je konečné těleso. Množina všech slov délky $n$ nad $T$
+\begin{equation}
+	T^n = \bc{\ol{u} = (u_1 u_2 \dots u_n), u_i \in T}
+\end{equation}
+tvoří lineární prostor nad tělesem $T$.
+
+Sčítání a násobení číslem $a \in T$ je definováno po složkách,
+\begin{equation}
+	\ol{u} + \ol{v} = (u_1 + v_1 \dots u_n + v_n), \quad a \cdot \ol{u} = (au_1 \dots au_n),
+\end{equation}
+kde se \enquote{písmena} sčítají a násobí v $T$. Počet slov je $|T|^n$.
+
+Pro přehlednost slovo dáváme do závorek, neboť jsou obvyklým značením vektorů v lineární algebře.
+
+\subsection{Související pojmy s lineárními prostory}
+\ii{Podprostor} lineárního prostoru $L$ je neprázdná podmnožina $P \subseteq L$, která je uzavřená na sčítání a číselné násobky.
+
+Podprostor musí vždy obsahovat nulový vektor daného prostoru.
+
+\ii{Báze} lineární podprostoru $P$ je jeho lineárně nezávislá podmnožinu $B = \bc{\ol{b_1}, \dots, \ol{b_k}}$, která generuje celý prostor $P$. Báze budeme chápat jako uspořádaná báze.
+
+Počet prvků libovolné báze podprostoru $P$ se nazývá \ii{dimenze} podprostoru $P$, zde $\dim P = k$.
+
+Každý vektor z $P$ lze právě jedním způsobem nakombinovat z bazických vektorů:
+\begin{equation}
+	\ol{u} \in P \iff \ol{u} = \sum_{i=1}^k a_i \ol{b_i}
+\end{equation}
+
+Jednoznačně určená $k$-tice koeficientů $(a_1 \dots a_k) \in T^k$ se nazývá \ii{souřadnice} vektorů $\ol{u}$ vzhledem k bázi $B$.
+
+Přechod od vektorů z podprostoru $P$ k jejich souřadnicím v $T^k$ je lineární zobrazení, které je vzájemně jednoznačné, tzv. \ii{isomorfismus}.
+
+\subsection{Skoro skalární součin na \texorpdfstring{$T^n$}{Tn}}
+Nechť $T$ je konečné těleso. Pak
+\vspace{-1em}
+\begin{itemize}
+	\item zobrazení $\odot : T^n \times T^n \rightarrow T$ definované předpisem
+	\begin{equation}
+		\ol{u} \odot \ol{v} = u_1 v_1 + \dots + u_n v_n
+	\end{equation}
+	je symetrická bilineární forma. Budeme mluvit o \ii{skoro skalárním součinu} na $T^n$;
+	\item \ii{kolmost slov} $\ol{u} \perp \ol{v}$ nastane, když $\ol{u} \odot \ol{v} = 0$;
+	\item \ii{kolmý doplněk} k podprostoru $P$ v prostoru $T^n$ je $P^\perp = \bc{\ol{u} \in T^n; \; \ol{u} \perp \ol{v} \text{ pro všechna } \ol{v} \in P}$.\\
+	Kolmý doplněk $P^\perp$ tvoří podprostor, $\dim P^\perp = n - \dim P$.
+\end{itemize}
+
+\subsection{Související pojmy se skoro skalárním součinem}
+Skalární součin v lineárním prostoru $L$ je bilineární forma, která je symetrická a pozitivně definitní. Naše zobrazení nesplňuje pozitivní definitnost:
+\vspace{-1em}
+\begin{center}
+	pro všechna $\ol{u} \in L$ je $\ol{u} \odot \ol{u} \geq 0$ a rovnost nastane právě, když $\ol{u} = \ol{o}$.
+\end{center}
+\vspace{-1em}
+Příčiny:
+\vspace{-1em}
+\begin{enumerate}[a)]
+	\item Konečná tělesa neumíme uspořádat; je v $\Z_3$ číslo $2 = -1$ větší, či menší, než číslo 0?
+	\item Například pro $\ol{u} = \bc{1 \dots 1} \not= \ol{o} \in \Z_p^n$ je $\ol{u} \odot \ol{u} = 0$ v $\Z_p$.
+\end{enumerate}
+Důsledkem je, že selhává geometrická představa o kolmosti, protože vektor může být kolmý sám na sebe.
+
+\subsection{Soustavy lineárních rovnic nad \texorpdfstring{$\Z_p$}{Zp}}
+\ii{Soustavy lineárních rovnic} nad $\Z_p$ se řeší stejně jak nad $\R$ nad jakýmkoliv tělesem $T$.
+
+Nad $\Z_p$ funguje \ii{Gaussova eliminační metoda}. Místo dělení rovnice vedoucím pivotem používá násobení k němu inverzním prvkem. (V $\Z_p$ má každé nenulové číslo inverzní prvek.)
+
+Nad $\Z_n$, kde $n$ \ii{není} \hyperref[prvocisla]{prvočíslo}, obecně Gaussova eliminace nefunguje.
+
+Soustavu $m$ lineárních rovnic o $n$ neznámých můžeme zapsat maticově:
+\begin{equation}
+	\A \ol{x}^\intercal = \ol{b}^\intercal,
+\end{equation}
+kde $\A$ je matice nad $\Z_p$ typu $(m, n)$.
+
+Řešením je každá $n$-tice $\ol{a} \in \Z_p^n$, která vyhovuje všem rovnicím. Soustava může mít jedno řešení, žádné řešení, nebo $p^k$ různých řešení, kde $k = m - \rank \A$ je počet proměnných, které smíme volit libovolně $\Z_p$.
+
+\subsection{Tvrzení o struktuře množiny všech řešení}
+\begin{enumerate}[a)]
+	\item Všechna řešení homogenní soustavy
+	\begin{equation}
+		\A \ol{x}^\intercal = \ol{o}^\intercal
+	\end{equation}
+	nad $\Z_p$ o $n$ neznámých tvoří podprostor v $\Z_p^n$.
+	\item Každé řešení (ne)homogenní soustavy rovnic
+	\begin{equation}
+		\A\ol{x}^\intercal = \ol{b}^\intercal
+	\end{equation}
+	je součtem partikulárního řešení této soustavy a nějakého řešení přidružené homogenní soustavy.
+\end{enumerate}
+
+\subsection{Tvrzení o popisu podprostoru}
+Každý podprostor $P$ v lineárním prostoru $\Z_p^n$ můžeme popsat homogenní soustavou lineárních rovnic, aneb pro vhodnou matici $\A$ platí:
+\begin{equation}
+	\ol{u} \in P \iff \ol{u} \text{ řeší soustavu } \A \ol{x}^\intercal = \ol{o}^\intercal
+\end{equation}
+Následující tvrzení jsou ekvivalentní:
+\vspace{-1em}
+\begin{itemize}
+	\item $\ol{u}$ řeší homogenní soustavu $\A \ol{x}^\intercal = \ol{o}^\intercal$
+	\item $R_i \odot \ol{u} = 0$ pro každý řádek $R_i$ matice $\A$
+	\item $R_i \perp \ol{u}$ pro každý řádek $R_i$ matice $\A$
+\end{itemize}
+
+\subsection{Tvrzení o podprostorech a soustavách lineárních rovnic}
+Nechť podprostor $P$ v prostoru $\Z_p^n$ má bázi $B = \bc{\ol{b_1}, \dots, \ol{b_k}}$ a nechť $C = \bc{\ol{c_1}, \dots, \ol{c_{n-k}}} $ je báze ortogonálního doplňku $P^\perp$. Protože $\left(P^\perp\right)^\perp = P$, tak platí:
+\vspace{-1em} 
+\begin{itemize}
+	\item Podprostor $P$ je množinou všech řešení soustavy
+	\begin{equation}
+		\A \ol{x}^\intercal = \ol{o}^\intercal,
+	\end{equation}
+	kde matice $\A$ má v řádcích bazické vektory $\ol{c_1}, \dots, \ol{c_{n-k}}$ podprostoru $P^\perp$;
+	\item Podprostor $P^\perp$ je množinou všech řešení soustavy
+	\begin{equation}
+		\mathbb{B} \ol{x}^\intercal = \ol{o}^\intercal,
+	\end{equation}
+	kde matice $\mathbb{B}$ má v řádcích bazické vektory $\ol{b_1}, \dots, \ol{b_k}$ podprostoru $P$;
+\end{itemize}
+\vspace{-1em}
+Aneb bázi jednoho z podprostorů $P, P^\perp$ určíme jako bazická řešení homogenní soustavy s maticí, která má v řádcích bázi druhého podprostoru.
+
+\subsection{Maticový počet nad \texorpdfstring{$\Z_n$}{Zn}}
+\ii{Maticový počet} lze dělat nad okruhem $\Z_n$, i když některé záležitosti fungují jinak, než nad $\R$:
+\vspace{-1em}
+\begin{itemize}
+	\item Čtvercová matice $\A$ je \ii{regulární matice} nad $\Z_n$, když $\det(\A)$ je invertibilní v $\Z_n$.
+	\item Pouze regulární matice $\A$ má \ii{inverzní matici} nad $\Z_n$
+	\begin{equation}
+		\A^{-1} = \left(\det(\A)\right)^{-1} \mathbb{D}^\intercal,
+	\end{equation}
+	kde $\mathbb{D} = \left((-1)^{i+j} \det(\A_{ij})\right)$ a kde $\A_{ij}$ vznikla vyškrtnutím $i$-tého řádku a $j$-tého sloupce, je matice algebraických doplňků k $\A$.
+	\item Nad $\Z_p$ funguje Gaussova eliminace, je tudíž možné počítat inverzní matici eliminací na řádky dvojmatice:
+	\begin{equation}
+		\left(\A \middle| \E\right) \sim \dots \sim \left(\E \middle| \A^{-1}\right),
+	\end{equation}
+	kde $\E$ je jednotková matice.
+\end{itemize}
+
