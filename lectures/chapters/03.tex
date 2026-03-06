@@ -5,3 +5,194 @@ Bezpečnostní kódy odhalují, zda při přenosu nedošlo k chybě, případně
 Pokud na konečné kódové abecedě $T$ budeme umět sčítat a násobit tak, aby $T$ bylo těleso, pak množina $T^n$ všech slov délky $n$ bude lineární prostor a budeme moci použít aparát lineární algebry.
 
 Lineární prostory nad obecným tělesem se \enquote{chovají podobně} jako lineární prostory nad tělesem reálných čísel.
+
+\subsection{Kód}\label{kod}
+\ii{Kód} je mnmožina všech \ii{kódových slov}.
+
+Blokový kód délky $n$ nad $\Z_p$ je kód, jehož slova mají délku $n$, abeceda je $p$-znaková množina $\Z_p$.
+
+\subsection{Lineární kód}\label{linKod}
+\hyperref[kod]{Kód} $K$ délky $n$ nad $\Z_p$ je \ii{lineární kód}, pokud tvoří podprostor v lineárním prostoru $\Z_p^n$.
+
+Je-li $\dim K = k$, pak mluvíme o \ii{lineárním $(n,k)$-kódu nad $\Z_p$}.
+
+Příklady lineárních kódů:
+\vspace{-1em}
+\begin{itemize}
+	\item Opakovací kód délky 3 nad $\Z_2$, $K = \bc{(000), (111)}$.
+	\item Kód kontroly parity délky 3 nad $\Z_2$, $K = \bc{(000), (101), (011), (110)}$.
+\end{itemize}
+
+\subsection{Pozorování na lineárním kódu}
+Nechť $K$ je lineární $(n,k)$-kód nad $\Z_p$. Pak
+\vspace{-1em}
+\begin{itemize}
+	\item nulové slovo je vždy kódové, tj. $\ol{o} \in K$;
+	\item $K$ obsahuje $p^k$ kódových slov;
+	\item $k$ je počet informačních znaků a $m = n-k$ je počet kontrolních znaků \hyperref[kod]{kódu} $K$.
+\end{itemize}
+
+\subsection{Kódování}\label{kodovani}
+Nechť $K$ je (\hyperref[linKod]{lineární}) \hyperref[kod]{kód} nad $\Z_p$. \ii{Kódování} je prosté zobrazení $\varphi : \Z_p^k \rightarrow K$, které každému informačnímu slovu délky $k$ přiřadí kódové slovo.
+
+Každý kód může mít více možností kódování.
+
+Například opakovací kód délky 3 nad $\Z_2$, $K = \bc{(000), (111)}$, má (systematické lineární) kódování: $0 \mapsto (000)$, $1 \mapsto (111)$. Také $1 \mapsto (000)$, $0 \mapsto (111)$ je kódování, ale není lineární.\\
+Dva znaky jsou kontrolní a umožňují objevit dvě chyby a opravit jednu chybu.
+
+Nechť $B = \bc{\ol{b_1}, \dots, \ol{b_k}}$ je báze lineárního $(n,k)$-kódu $K$. Pak
+\begin{equation}
+	\varphi: \Z_p^k \to K: \ol{a} = (a_1 \dots a_k) \mapsto \ol{v} = \sum_{i=1}^k a_i \ol{b_i}
+\end{equation}
+je vzájemně jednoznačné lineární zobrazení (isomorfismus). Zobrazení $\varphi$ určuje kódování informačních slov délky $k = \dim K$. Informační znaky jsou souřadnice kódového slova vůči bázi $B$.
+
+Naopak, každé lineární kódování $\psi : \Z_p^k \to K$ jednoznačně určuje bázi kódu $K$, tvoří ji obrazy standardní báze v prostoru $\Z_p^k$.
+
+\subsection{Generující matice}\label{genMat}
+Nechť $B = \bc{\ol{b_1}, \dots, \ol{b_k}}$ je báze \hyperref[linKod]{lineárního} $(n,k)$-kódu $K$. Matice \[\mathbb{G} = \begin{pmatrix} \ol{b_1} \\ \vdots \\ \ol{b_k}\end{pmatrix}\] se nazývá \ii{generující matice} kódu $K$. \hyperref[kodovani]{Kódování} se provádí vynásobením informačního slova generující maticí:
+\begin{equation}
+	\varphi : \Z_p^k \to K : \ol{a} \mapsto \ol{a} \cdot \mathbb{G} = \ol{v}
+\end{equation}
+Gaussova eliminace na řádky převede generující matici $\mathbb{G}$ kódu $K$ na jinou generující matici $\mathbb{G}^\prime$ téhož kódu $K$.
+
+\subsection{Dekódování informačních znaků}
+Dekódování coby inverzní zobrazení $\varphi^{-1} : K \to \Z_p^k$ probíhá takto:
+\vspace{-1em}
+\begin{itemize}
+	\item Pro slovo $\ol{v} \in K$ hledáme jeho souřadnice vůči bázi, která je v řádcích matice $\mathbb{G}$.
+	\item Musíme vyřešit soustavu $\mathbb{G}^\intercal \ol{a}^\intercal = \ol{v}^\intercal$, která má $n$ lineárních rovnic o $k$ neznámých, kde \\ $\rank \mathbb{G}^\intercal = k$ a soustava má řešení (neboť $\ol{v} \in K$).
+	\item Můžeme se omezit na $k$ lineárně nezávislých rovnic a vyřešit danou podsoustavu s regulární maticí (např. tak, že ji vynásobíme inverzní maticí). 
+\end{itemize}
+
+\subsection{Systematické kódování}\label{systKod}
+Nechť $K$ je \hyperref[linKod]{lineární} $(n,k)$-kód nad $\Z_p$. \ii{Systematické kódování} je \hyperref[kodovani]{kódování}, které ponechá informační znaky na začátku kódového slova a doplní je o kontrolní znaky:
+\begin{equation}
+	\varphi : \Z_p^k \to K : \ol{a} = (a_1 \dots a_k) \mapsto \ol{v} = (a_1 \dots a_k b_1 \dots b_{n-k})
+\end{equation}
+\ii{Systematická generující matice} kódu $K$ je jeho \hyperref[genMat]{generující matice} tvaru
+\begin{equation}
+	\mathbb{G}_S = (\E_k \mathbb{B}).
+\end{equation}
+Systematické kódování má snadné dekódování informačních znaků:
+\begin{equation}
+	\varphi^{-1}: K \to \Z_p^k: \ol{v} = (v_1 \dots v_n) \mapsto \ol{a} = (v_1 \dots v_k)
+\end{equation}
+Pokud to půjde, budeme chtít kódovat systematicky.
+
+\hyperref[kod]{Kód}, která má systematické kódování, se nazývá \ii{systematický kód}.
+
+\subsection{Tvrzení o lineárním kódu}
+Ke každému \hyperref[linKod]{lineárnímu kódu} $K$ lze najít \hyperref[systKod]{systematický lineární kód} $K^\prime$, který se liší pouze v pořadí znaků.
+
+Například koktavý kód délky 6 nad $\Z_2$, $K = \bc{(a\, a\, b\, b\, c\, c), \, a,b,c \in \Z_2}$, je lineární kód, který nemá systematické kódování. Permutací znaků lze udělat systematický kód $K^\prime = \bc{(a\, b\, c \, a\, b\, c), \, a,b,c \in \Z_2}$.
+
+Opakovací kód délky 3 nad $\Z_2$, $K = \bc{(000), (111)}$, má systematickou generující matici $\mathbb{G}_S = (1 \, 1 \, 1)$.
+
+Kód kontroly parity délky 3 nad $\Z_2$, $K = \bc{(000), (011), (101), (110)}$, má systematickou generující matici $\mathbb{G}_S = \begin{pmatrix}1 & 0 & 1\\ 0 & 1 & 1\end{pmatrix}$.
+
+Kód kontroly parity délky 3 nad $\Z_2$, má také generující matici $\mathbb{G} = \begin{pmatrix}1 & 1 & 0 \\ 1 & 0 & 1 \end{pmatrix}$. Ta určuje nesystematické kódování: $(00) \mapsto (000), \, (01) \mapsto (101), \, (10) \mapsto (110), \, (11) \mapsto (011)$.
+
+\section*{Objevování chyb}
+\subsection{Kontrolní matice}\label{kontMat}
+Nechť $K$ je lineární $(n,k)$-kód nad $\Z_p$. Lineární podprostor $K$ lze popsat soustavou lineárních rovnic. Buď $C = \bc{\ol{c_1}, \dots, \ol{c_{n-k}}}$ báze podprostoru $K^\perp$, pak
+\begin{equation}
+	\ol{v} \in K \iff \mathbb{H}\ol{v}^\intercal = \ol{o}^\intercal \text{ pro } \mathbb{H} = \begin{pmatrix}\ol{c_1} \\ \vdots \\ \ol{c_{n-k}}\end{pmatrix}.
+\end{equation}
+Matice $\mathbb{H}$ se nazývá \ii{kontrolní matice} \hyperref[kod]{kódu} $K$.
+
+Gaussova eliminace na řádky převede kontrolní matici $\mathbb{H}$ kódu $K$ na jinou kontrolní matici $\mathbb{H}^\prime$ téhož kódu $K$.
+
+\subsection{Vztah mezi generující a kontrolní maticí}
+Nechť \hyperref[linKod]{lineární kód} $K$ má \hyperref[genMat]{generující matici} $\mathbb{G}$ a \hyperref[kontMat]{kontrolní matici} $\mathbb{H}$. Pak platí:
+\vspace{-1em}
+\begin{itemize}
+	\item $\mathbb{G}$ má v řádcích bazická řešení soustavy $\mathbb{H}\ol{x}^\intercal = \ol{o}^\intercal$.
+	\item $\mathbb{H}$ má v řádcích bazická řešení soustavy $\mathbb{G}\ol{x}^\intercal = \ol{o}^\intercal$.
+\end{itemize}
+Má-li lineární $(n,k)$-kód $K$ generující matici $\mathbb{G}_S = \left(\E_k \, \mathbb{B}\right)$, pak má kontrolní matici $\mathbb{H} = \left(-\mathbb{B}^\intercal \, \E_{n-k}\right)$.
+
+\subsection{Kontrola přijatého slova}
+Bylo vysláno slovo $\ol{v} \in K \subseteq \Z_p^n$ a přijato slovo $\ol{w} \in \Z_p^n$. Pokud $\mathbb{H}\ol{w}^\intercal \not= \ol{o}^\intercal$, pak $\ol{w} \not\in K$, tudíž $\ol{v} \not= \ol{w}$, a tedy při přenosu jiště došlo k chybě. V opačném případě je $\ol{w} \in K$ a předpokládáme, že $\ol{v} = \ol{w}$.
+
+Pomocí \hyperref[kontMat]{kontrolní matice} lze někdy chybu i opravit.
+
+\subsection{Příklad kontrolní matice}
+Opakovací kód délky 3 nad $\Z_2$ je popsán rovnicemi $v_1 = v_2$, $v_1 = v_3$, což odpovídá kontrolní matici
+\begin{equation}
+	\mathbb{H} = \begin{pmatrix}1 & -1 & 0 \\ 1 & 0 & -1\end{pmatrix} = \begin{pmatrix}1 & 1 & 0 \\ 1 & 0 & 1\end{pmatrix}.
+\end{equation}
+
+Kód kontroly parity délky 3 nad $\Z_2$ je popsán rovnicí $v_1 + v_2 + v_3 = 0$, má tedy kontrolní matici
+\begin{equation}
+	\mathbb{H} = \begin{pmatrix} 1 & 1 & 1 \end{pmatrix}.
+\end{equation}
+
+\subsection{Duální kódy}
+Nechť $K$ je \hyperref[linKod]{lineární} $(n,k)$-kód nad $\Z_p$ s \hyperref[genMat]{generující matici} $\mathbb{G}$ a \hyperref[kontMat]{kontrolní matici} $\mathbb{H}$. Lineární $(n,\, n-k)$-kód $K^\perp$ nad $\Z_p$ se nazývá \ii{duální kód} kódu $K$.
+
+Kód $K^\perp$ má generující matici $\mathbb{H}$ a kontrolní matici $\mathbb{G}$.
+
+Například opakovací kód délky $n$ nad $\Z_p$ a kód kontroly parity délky $n$ nad $\Z_p$ (určený rovnicí: součet písmen je nula v $Z_p$) jsou navzájem duální kódy.
+
+\subsection{Dekódování přijatého slova}
+Nechť $K$ je \hyperref[linKod]{lineární} $(n,k)$-kód nad $\Z_p$. Bylo vysláno slovo $\ol{v} \in K$ a přijato slovo $\ol{w} \in \Z_p^n$. \\
+\ii{Dekódování} je zobrazení $\delta: \Z_p^n \to K$. Jedná se vlastně o opravení přijatého slova na slovo kódové. Částečné dekódování je zobrazení $\delta : M \to K$, kde $K \subseteq M \subseteq \Z_p^n$. Například chceme opravit jen ta přijatá slova, která mají jednoznačnou opravu.
+
+\bb{Pozor}: Rozlišujeme \ii{dekódování přijatého slova} a \ii{dekódování informačních znaků} z kódového slova. Pokud budeme mluvit o dekódování, budeme tím myslet dekódování přijatého slova na slovo kódové.
+
+Předpokládáme, že pravděpodobnost, že při přenosu dojde k chybě, je malá. Například u binárního symetrického kanálu je pravděpodobnost chyby menší než $\frac{1}{2}$. \\
+Poté je pravděpodobnost, že došlo k méně chybám, větší než pravděpodobnost, že došlo k více chybám.\\
+Při dekódování budeme hledat kódové slovo, které se od přijatého slova liší v co nejméně znacích (= nejbližšího souseda). Toto je tzv. \enquote{nearest neighbour decoding}.
+
+\subsection{Hammingova váha}\label{hamVa}
+\ii{Hammingova váha} slova $\ol{u}$ je rovna počtu nenulových znaků ve slově $\ol{u}$. Značíme $\|\ol{u}\|_H$.
+
+\subsection{Hammingova vzdálenost}\label{hamVz}
+\ii{Hammingova vzdálenost} slov $\ol{u}$ a $\ol{v}$ délky $n$ je rovna počtu znaků, ve kterých se obě slova liší, aneb
+\begin{equation}
+	d_H(\ol{u}, \ol{v}) = \|\ol{v} - \ol{u}\|_H.
+\end{equation}
+
+\subsection{Tvrzení o Hammingově vzdálenosti}
+\hyperref[hamVz]{Hammingova vzdálenost} je metrikou na množině $\Z_p^n$. Pro všechna $\ol{u}, \ol{v}, \ol{w} \in \Z_p^n$ platí:
+\vspace{-1em}
+\begin{itemize}
+	\item $d_H(\ol{u}, \ol{v}) \geq 0$ a rovnost nastane právě, když $\ol{u} = \ol{v}$
+	\item $d_H(\ol{u}, \ol{v}) = d_H(\ol{v}, \ol{u})$
+	\item $d_H(\ol{u}, \ol{v}) \leq d_H(\ol{u}, \ol{w}) + d_H(\ol{w}, \ol{v})$
+\end{itemize}
+
+\subsection{Chybové slovo}\label{chybSlovo}
+Bylo-li vysláno slovo $\ol{v} \in K$ a přijato slovo $\ol{w} = \ol{v} + \ol{e}$, pak se $\ol{e}$ nazývá \ii{chybové slovo} pro slova $\ol{v}$ a $\ol{w}$.
+
+\subsection{Objevování chybových slov}\label{objevuje}
+\hyperref[kod]{Kód} $K$ \ii{objevuje \hyperref[chybSlovo]{chybové slovo} $\ol{e}$}, jestliže pro žádné kódové slovo $\ol{v} \in K$ není slovo $\ol{v} + \ol{e}$ kódové.
+
+\subsection{Tvrzení o lineárních kódech a chybových slovech}
+\hyperref[linKod]{Lineární kód} $K$ objevuje právě ta \hyperref[chybSlovo]{chybová slova}, která nejsou kódová.
+
+\subsection{Objevování a opravování chyb}
+\hyperref[kod]{Kód} $K$ \ii{objevuje $t$ chyb}, jestliže objevuje každé chybové slovo váhy 
+\begin{equation}
+	\|\ol{e}\|_H \leq t.
+\end{equation}
+Kód $K$ \ii{opravuje $t$ chyb}, jestliže pro každé kódové slovo $\ol{v} \in K$ a každé chybové slovo $\ol{e}$ váhy $\|\ol{e}\|_H \leq t$ platí
+\begin{equation}
+	d_H(\ol{v}, \, \ol{v} + \ol{e}) < d_H(\ol{u}, \, \ol{v} + \ol{e})
+\end{equation}
+pro každé kódové slovo $\ol{u} \in K$, $\ol{u} \not= \ol{v}$.
+
+\subsection{Tvrzení o vztahu opravování a objevování chyb}
+\hyperref[kod]{Kód} opravuje (alespoň) $t$ chyb právě, když \hyperref[objevuje]{objevuje} (alespoň) $2t$ chyb.
+
+\subsection{Minimální vzdálenost kódu}
+\ii{Minimální vzdálenost kódu} $K$ je rovna nejmenší \hyperref[hamVz]{Hammingově vzdálenosti} různých kódových slov:
+\begin{equation}
+	d_H(K) = \min\bc{d_H(\ol{u}, \ol{v}) \mid \ol{u}, \ol{v} \in K, \, \ol{u} \not= \ol{v}}.
+\end{equation}
+
+\subsection{Tvrzení o lineárním kódu a minimální vzdálenosti kódu}
+Je-li kód $K$ lineární, pak minimální vzdálenost kódu je rovna nejmenší \hyperref[hamVa]{Hammingově váze} nenulového kódového slova, tj.
+\begin{equation}
+	d_H(K) = \min\bc{\|\ol{u}\|_H \mid \ol{o} \not= \ol{u} \in K}.
+\end{equation}
