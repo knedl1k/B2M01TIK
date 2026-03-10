@@ -5,7 +5,8 @@
 \vspace{-1em}
 \begin{itemize}
 	\item $(L, \oplus)$ je komutativní grupa s neutrálním prvkem $\ol{o}$;
-	\item pro všechny $\alpha, \beta \in T$ a všechny $\ol{u}, \ol{u} \in L$:
+	\item pro všechny $\alpha, \beta \in T$ a všechny $\ol{u}, \ol{v} \in L$:
+	\vspace{-0.5em}
 	\begin{itemize}[$\cdot$]
 		\item $\alpha \boxdot (\ol{u} \oplus \ol{v}) = (\alpha \boxdot \ol{u}) \oplus (\alpha \boxdot \ol{v})$
 		\item $(\alpha + \beta) \boxdot \ol{u} = (\alpha \boxdot \ol{u}) \oplus (\beta \boxdot \ol{u})$
@@ -36,7 +37,7 @@ Pro přehlednost slovo dáváme do závorek, neboť jsou obvyklým značením ve
 
 Podprostor musí vždy obsahovat nulový vektor daného prostoru.
 
-\ii{Báze} lineární podprostoru $P$ je jeho lineárně nezávislá podmnožinu $B = \bc{\ol{b_1}, \dots, \ol{b_k}}$, která generuje celý prostor $P$. Báze budeme chápat jako uspořádaná báze.
+\ii{Báze} lineární podprostoru $P$ je jeho lineárně nezávislá podmnožinu $B = \bc{\ol{b_1}, \dots, \ol{b_k}}$, která generuje celý prostor $P$. Báze budeme chápat jako uspořádané báze.
 
 Počet prvků libovolné báze podprostoru $P$ se nazývá \ii{dimenze} podprostoru $P$, zde $\dim P = k$.
 
@@ -147,7 +148,7 @@ Aneb bázi jednoho z podprostorů $P, P^\perp$ určíme jako bazická řešení 
 	\begin{equation}
 		\A^{-1} = \left(\det(\A)\right)^{-1} \mathbb{D}^\intercal,
 	\end{equation}
-	kde $\mathbb{D} = \left((-1)^{i+j} \det(\A_{ij})\right)$ a kde $\A_{ij}$ vznikla vyškrtnutím $i$-tého řádku a $j$-tého sloupce, je matice algebraických doplňků k $\A$.
+	kde $\mathbb{D} = \left((-1)^{i+j} \det(\A_{ij})\right)$ a kde $\A_{ij}$ je matice algebraických doplňků k $\A$, která vznikla vyškrtnutím $i$-tého řádku a $j$-tého sloupce.
 	\item Nad $\Z_p$ funguje Gaussova eliminace, je tudíž možné počítat inverzní matici eliminací na řádky dvojmatice:
 	\begin{equation}
 		\left(\A \middle| \E\right) \sim \dots \sim \left(\E \middle| \A^{-1}\right),
