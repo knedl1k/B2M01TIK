@@ -196,3 +196,141 @@ Je-li kód $K$ lineární, pak minimální vzdálenost kódu je rovna nejmenší
 \begin{equation}
 	d_H(K) = \min\bc{\|\ol{u}\|_H \mid \ol{o} \not= \ol{u} \in K}.
 \end{equation}
+\dukaz Kdyby $d_H(K) = d$. Nechť $\ol{u}, \ol{v}$ jsou nějaká nejbližší slova. Pak $d_H(\ol{u}, \ol{v}) = K$, $\ol{w} = \ol{u} - \ol{v} \in K$, protože lineární podprostor.
+
+A $\|\ol{w}\| = d$, takže $\ol{w}$ možná není \enquote{nejlehčí}, takže
+\begin{equation}
+	d = \|\ol{w}\| \leq \min \bc{\|\ol{u}\|\, \ol{u} \in K, \, \ol{u} \in \ol{o}} = m.
+\end{equation}
+Analogicky: Nechť $\ol{u_0}$ je \enquote{nejlehčí} nenulové slovo $\|\ol{u_0}\| = m$. A $\ol{o} \in K$ (podprostor) a $d_H(\ol{u_o},\ol{o}) = \|\ol{u_o}\| = m$, možná existuje bližší slovo v $K$. Takže $d = m$.
+\hspace{\fill}\qed
+
+\subsection{Tvrzení o (ne)objevování chyb a minimální vzdálenosti kódu}
+Kód $K$ má minimální vzdálenost $d_H(K) = d$ právě, když objevuje $d-1$ chyb a neobjevuje (libovolných) $d$ chyb. Tedy kód opravuje $r = \left[\frac{d-1}{2}\right]$ chyb, ale více ne, resp. ne vždy.
+
+\subsection{Tvrzení o počtu kontrolních znaků a objevování chyb}
+Nechť $K$ je lineární $(n,k)$-kód nad $\Z_p$, pak platí nerovnost:
+\begin{equation}
+	d_H(K) \leq n-k+1	
+\end{equation}
+Aneb kód objevuje nejvýše $n-k$ chyb, tedy nejvýše tolik chyb, kolik má kontrolních znaků.
+
+\subsection{Syndrom}\label{syndrom}
+Mějme lineární $(n,k)$-kód $K$ nad $\Z_p$ s kontrolní maticí $\mathbb{H}$. Předpokládejme, že bylo posláno slov $\ol{v} \in K$ a přijato slovo $\ol{w} = \ol{v} + \ol{e}$, kde $\ol{e}$ je \hyperref[chybSlovo]{chybové slovo}. Víme, že pokud $\mathbb{H}\ol{w}^\intercal \not= \ol{o}^\intercal$, tak nastala chyba, tj. $\ol{e} \not= \ol{o}$. Slovo $\ol{s}$, pro něž je $\mathbb{H}\ol{w}^\intercal = \ol{s}^\intercal$, se nazývá \ii{syndrom} přijatého slova $\ol{w}$.
+
+Přijaté slovo má stejný syndrom jako jeho chybové slovo.
+
+Spočteme syndrom $\ol{s}$ přijatého slova $\ol{w}$ a pak hledáme chybové slovo $\ol{e}$ s co nejmenší vahou, které řeší soustavu $\mathbb{H}\ol{x}^\intercal = \ol{s}^\intercal$.
+\vspace{-1em}
+\begin{itemize}
+	\item Homogenní soustavu $\mathbb{H}\ol{x}^\intercal = \ol{o}^\intercal$ řeší právě všechna kódová slova $\ol{v} \in K$. Je-li $\ol{s} = \ol{o}$, pak $\ol{e_o} = \ol{o}$.
+	\item Nehomogenní soustavu $\mathbb{H}\ol{x}^\intercal = \ol{s}^\intercal$ řeší právě všechna slova tvaru $\ol{w} + \ol{v}$, kde $\ol{w}$ je partikulární řešení a $\ol{v} \in K$.
+	\item Vyberme z množiny všech řešení této nehomogenní soustavy jedno řešení s nejmenší Hammingovou vahou, označme je $\ol{e_s}$.
+	\item Pro každý syndom $\ol{s}$ si zapišme do tabulky chybové slovo $\ol{e_s}$.
+	\item Takto vytvoříme tabulku chybových slov $\ol{e_s}$ s nejmenší vahou pro každý možnýá syndrom $\ol{s}$.
+	\item Pro lineární $(n,k)$-kód $K$ nad $\Z_p$ bude mít tabulka $p^{n-k}$ řádků.
+\end{itemize}
+Standardní dekódování: Spočteme syndrom přijatého slova $\ol{w}$, podle tabulky zjistíme chybové slovo nejmenší váhy $\ol{e} = \ol{e_s}$. Opravíme na kódové slovo $\ol{v} = \ol{w} - \ol{e}$.
+
+\subsection{Tvrzení o počtu opravených chyb standardním dekódováním}
+Každé standardní dekódování je optimální co do počtu opravovaných chyb. Všechna slova, která mají jednoznačnou opravu (jediného nejbližšího souseda) opraví standardní dekódování správně.
+
+\subsection{Tvrzení o stejném syndromu přijatého a chybového slova}
+Mějme lineární $(n,k)$-kód $K$ nad $\Z_p$ s kontrolní matici $\mathbb{H}$. Bylo posláno kódové slovo $\ol{v}$ a přijato $\ol{w} = \ol{v} + \ol{e}$.
+
+Přijaté slovo má stejný \hyperref[syndrom]{syndrom} jako jeho \hyperref[chybSlovo]{chybové slovo}:
+\begin{equation}
+	\mathbb{H}\ol{w}^\intercal = \mathbb{H}\ol{e}^\intercal = \ol{s}^\intercal
+\end{equation}
+Syndrom je kombinací těch sloupců $S_i$ kontrolní matice $\mathbb{H}$, jež odpovídají pozicím, kde je chyba:
+\begin{equation}
+	\ol{s}^\intercal = \sum_{e_i \not= 0} e_i S_i
+\end{equation}
+
+Pokud je ve slově $\ol{w}$ jedna chyba na $i$-té pozici, pak $\mathbb{H}\ol{w}^\intercal = a S_i$. Určíme-li jednoznačně $a$, $S_i$, můžeme chybu opravit:
+\begin{equation}
+	\ol{v} = \ol{w} - \ol{e}, \, \text{kde } e = (0 \dots 0 \, a \, 0 \dots 0), \, e_i = a.
+\end{equation}
+
+\subsection{Pozorování u dekódování pomocí sloupců v \texorpdfstring{$\mathbb{H}$}{H}}
+Lineární kód objevuje 1 chybu, pokud jeho kontrolní matice $\mathbb{H}$ neobsahuje nulový sloupec.
+
+Lineární kód opravuje 1 chybu a objevuje 2 chyby, pokud žádný sloupec jeho kontrolní matice $\mathbb{H}$ není násobkem jiného sloupce v $\mathbb{H}$.
+
+Lineární kód $K$ objevuje $t$ chyb (a opravuje $\left[\frac{t}{2}\right]$ chyb) právě, když je každých $t$ sloupců jeho kontrolní matice $\mathbb{H}$ lineárně nezávislých.\\
+Odtud znovu nerovnost $t \leq n-k$, kód objevuje nejvýše tolik chyb, kolik má kontrolních znaků.
+
+\subsection{Hammingovy kódy}
+\ii{Hammingovy kódy} jsou kódy opravující jednu chybu, které mají co nejmenší redundanci, tedy co největší informační poměr (tj. mají co největší počet informačních znaků při daném počtu kontrolních znaků).
+
+\subsection{Binární Hammingův kód s \texorpdfstring{$m$}{m} kontrolními znaky}
+Pro daný počet kontrolních znaků $m$ vytvoříme kontrolní matici $\mathbb{H}$ binárního Hammingova kódu:
+
+Chceme, aby kód opravoval jednu chybu, tudíž každé dva sloupce matice $\mathbb{H}$ musí být lineárně nezávislé. Nad $\Z_2$ jsou vektory lineárně nezávislé právě, když jsou nenulové a různé.
+
+Chceme co nejdelší kódová slova, tudíž $\mathbb{H}$ musí mít co nejvíce sloupců. $\mathbb{H}$ bude mít ve sloupcích právě všechny nenulové $m$-tice nad $\Z_2$. 
+
+\subsection{Informační poměr}
+Délka binárního Hammingova kódu s $m$ kontrolními znaky je
+\begin{equation}
+	n = 2^m - 1,
+\end{equation}
+počet informačních znaků je tedy
+\begin{equation}
+	k = 2^m - 1 -m.
+\end{equation}
+Informační poměr
+\begin{equation}
+	\frac{k}{n} = 1 - \frac{m}{2^m -1}
+\end{equation}
+roste rychle k 1.
+
+Pro $m = 3$ je $k:n = 4:7$, pro $m=6$ je $k:n = 57:63$.
+
+\subsection{Snadné dekódování}
+Sloupce v $\mathbb{H}$ si lze představit jako binární rozvoje čísel 1 až $2^m - 1$. Seřadíme sloupce vzestupně, tedy $S_i = (i)_2$.
+
+Opravování jedné chyby je pak snadné: Je-li \hyperref[syndrom]{syndrom} přijatého slova binárním rozvojem čísla $i$, pak je chyba na $i$-té pozici. Opravíme ji změnou $i$-tého znaku na opačný v $\Z_2$.
+
+Příklad.\\
+Pro $m=3$ má kontrolní matice binárního Hammingova kódu tvar:
+\begin{equation}
+	\mathbb{H} =
+	\begin{pmatrix}
+	0 & 0 & 0 & 1 & 1 & 1 & 1 \\
+	0 & 1 & 1 & 0 & 0 & 1 & 1 \\
+	1 & 0 & 1 & 0 & 1 & 0 & 1
+	\end{pmatrix}
+\end{equation}
+Přijaté slovo $\ol{w} = (1100001)$ má syndrom $\ol{s} = (100) = (4)_2$. \\
+Dekódujeme na kódové slovo $\ol{v} = (1101001)$.
+
+\subsection{Rozšířený Hammingův kód}
+\ii{Rozšířený Hammingův kód} nad $\Z_2$ obsahuje slova Hammingova kódu prodloužená o znak celkové kontroly parity.
+
+Délka slov je tedy $n=2^m$, počet informačních znaků zůstavá $k = 2^m - 1 -m$. Kontrolní matice má tvar
+\begin{equation}
+	\mathbb{H}_R =
+	\begin{pmatrix}
+	& & & & 0 \\
+	& \mathbb{H} & & & \vdots \\
+	& & & & 0 \\
+	1 & 1 & \hdots & & 1
+	\end{pmatrix},
+\end{equation}
+kde $\mathbb{H}$ je matice příslušného Hammingova kódu. Rozšířený Hammingův kód opravuje jednu chybu, ale objevuje tři chyby.
+
+\subsection{Perfektní lineární kód}
+Lineární $(n,k)$-kód $K$ nad $\Z_p$ je perfektní pro $t$-násobné opravy, jestliže pro každé slovo $\ol{w} \in \Z_p^n$ existuje právě jedno kódové slovo $\ol{v} \in K$ tak, že
+\begin{equation}
+	d_H(\ol{v}, \ol{w}) \leq t.
+\end{equation}
+Aneb kód opravuje $t$ chyb a dokonce každé přijaté slovo lze opravit na kódové tak, že počet chyb je nejvýše $t$.
+
+Jediné netriviální perfektní binární kódy jsou:
+\vspace{-1em}
+\begin{itemize}
+	\item Hammingovy kódy pro jednonásobné chyby;
+	\item Opakovací kódy délky $2t+1$ pro $t$-násobné chyby;
+	\item Golayův $(23, 12)$-kód pro trojnásobné chyby a kódy s ním ekvivalentní.
+\end{itemize}
